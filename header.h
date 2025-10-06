@@ -104,10 +104,12 @@ extern vector <int> Ravailableplayers;
 extern short int decider;
 extern short int wIndex;
 
-//celltime.cpp variables and functions
+extern short int wOptions;
 void playeranswer(); //Prompt the player to answer with their suit
 void suitcounter(); //Count how many of each suit a bot has taken in as an opinion
 void setOptions(); //Set how many talking options the bots have based on number of alive bots
 void newRound(); //Initiate a new round once the previous one has ended
 extern vector <string> playerop; //Player opinions, accumulating them from talking to other bots
+extern vector <string> suitsO1; //Suits as actual symbols, not codes or symbols, for option 1
+extern vector <string> suitsO2; //Suits as just initials for option 2
 extern vector <string> unspokenbots; //Kinda like allplayers vector but this is just to show who is available to talk (who the player hasn't talked to)
