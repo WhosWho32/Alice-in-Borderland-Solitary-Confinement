@@ -64,21 +64,56 @@ Bots::Bots() {
     //Make the bots available for discussion, all of them
     //Assign suit
     available.push_back(true);
-    suit = suits[rand()%4];
-    if (suit == "\x04") {
-        suit_txt[0] = "d";
-        suit_keeper_i.push_back(suit_txt[0]);
-    } else if (suit == "\x03") {
-        suit_txt[0] = "h";
-        suit_keeper_i.push_back(suit_txt[0]);
-    } else if (suit == "\x05") {
-        suit_txt[0] = "c";
-        suit_keeper_i.push_back(suit_txt[0]);
-    } else if (suit == "\x06") {
-        suit_txt[0] = "s";
-        suit_keeper_i.push_back(suit_txt[0]);
+    if (wOptions == 0) {
+        suit = suits[rand()%4];
+        if (suit == "\x04") {
+            suit_txt[0] = "d";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "\x03") {
+            suit_txt[0] = "h";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "\x05") {
+            suit_txt[0] = "c";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "\x06") {
+            suit_txt[0] = "s";
+            suit_keeper_i.push_back(suit_txt[0]);
+        }
+        suit_keeper.push_back(suit);
+    } else if (wOptions == 1) {
+        suit = suitsO1[rand()%4];
+        if (suit == "♥") {
+            suit_txt[0] = "h";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "♦") {
+            suit_txt[0] = "d";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "♣") {
+            suit_txt[0] = "c";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "♠") {
+            suit_txt[0] = "s";
+            suit_keeper_i.push_back(suit_txt[0]);
+        }
+        suit_keeper.push_back(suit);
+    } else if (wOptions == 2) {
+        suit = suitsO2[rand()%4];
+        if (suit == "h") {
+            suit_txt[0] = "h";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "d") {
+            suit_txt[0] = "d";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "c") {
+            suit_txt[0] = "c";
+            suit_keeper_i.push_back(suit_txt[0]);
+        } else if (suit == "s") {
+            suit_txt[0] = "s";
+            suit_keeper_i.push_back(suit_txt[0]);
+        }
+        suit_keeper.push_back(suit);
     }
-    suit_keeper.push_back(suit);
+    
     //Assign bot name
     bname = botnames[rand()%name]; //Name here is 14, since it's the beginning, so choose from index 0-13
     //After choosing, subtract one from name as it has been picked
@@ -206,4 +241,3 @@ Bots::Bots() {
     }
     
 }
-
