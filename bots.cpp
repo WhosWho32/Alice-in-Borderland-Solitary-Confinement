@@ -12,7 +12,7 @@ vector <string> botnames = {"Roy", "Becky", "Artemis", "Amy",
         "TurbilliONN", "Kamar1n", "Rigadooon", "1Callahan", "Arc4NaA",
         "Blackhawk", "MegaMagnusM", "Silv3r6", "Ameba", "GiantGerm", "Kaz3jin", "Robbin'Goblin", "UshiOni", "Sonya"}, suit_keeper, allplayers;
 vector <int> nameLen_keeper; // Vector that memorises the name length
-short int name = 40; //In total there are 34 numbers on start, but we will only choose 9
+short int name = 40; //In total there are 40 numbers on start, but we will only choose 9
 vector <string> unspokenbots;
 short int name_length;
 short int first = 0; //Check if it's the first name
@@ -206,3 +206,4 @@ Bots::Bots() {
     }
     
 }
+
