@@ -1,5 +1,48 @@
 #include <iostream>
+#include "header.h"
 using std::cout;
+using std::cin;
+using std::endl;
+string go;
+void proceed() {
+  cout<<"Proceed with the game? [y/n]: ";
+  cin>>go;
+  cin.clear();
+  cin.ignore(10000, '\n');
+  if (go == "y") {
+        cout<<endl<<endl;
+        for (int d = 1; d<=55; d++) {
+            cout<<" ";
+        }
+         cout<<R"(
+                                        ____  ____  ____  ____      ____  __  _  _  ____         
+                                 ___   (  __)(  _ \(  __)(  __)    (_  _)(  )( \/ )(  __)   ___  
+                                (___)   ) _)  )   / ) _)  ) _)       )(   )( / \/ \ ) _)   (___) 
+                                       (__)  (__\_)(____)(____)     (__) (__)\_)(_/(____)       
+                )";
+        cout<<endl<<endl;
+        player.push_back(suits[rand()%4]);
+        //Assign suit for the player
+        if (player[0] == "\x04") {
+            player_suit.push_back("d");
+        }
+        else if (player[0] == "\x03") {
+            player_suit.push_back("h");
+        }
+        else if (player[0] == "\x05") {
+            player_suit.push_back("c");
+        }
+        else if (player[0] == "\x06") {
+            player_suit.push_back("s");
+        }
+        //Create the bots
+        Bots bot1, bot2, bot3, bot4, bot5, bot6, bot7, bot8, bot9;
+  } else {
+    cout<<"[?] Unknown command. Make sure you answer with 'y' if you'd like to start the game."<<endl;
+    proceed();
+  }
+
+}
 void info() {
     cout<<R"(  
 
@@ -116,4 +159,6 @@ void info() {
                                                 |                                                    |
                                                 '----------------------------------------------------'
                                                 )";
+      cout<<endl<<endl;
+      proceed();
 }
