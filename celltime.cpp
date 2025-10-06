@@ -509,7 +509,14 @@ void playeranswer() {
     cout<<endl<<endl<<endl;
     cout<<"What do you think your suit is? Please write the INITIAL only for the suit."<<endl<<endl;
     cout<<"                                     Heart [h]    Diamond [d]     Club [c]    Spade [s]"<<endl;
-    cout<<"                                                  [\x03]   [\x04]   [\x05]  [\x06]"<<endl<<endl;
+    if (wOptions == 0) {
+        cout<<"                                                  [\x03]   [\x04]   [\x05]  [\x06]"<<endl<<endl;
+    } else if (wOptions == 1) {
+        cout<<"                                                  [♥]   [♦]   [♣]  [♠]"<<endl<<endl;
+    } else if (wOptions == 2) {
+        cout<<"                                                  [h]   [d]   [c]  [s]"<<endl<<endl;
+    }
+    
     cout<<"These are the options you have accumulated from talking to other players: ";
     for (string g : playerop) {
         cout<<g<<" ";
