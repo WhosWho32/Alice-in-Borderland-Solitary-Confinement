@@ -7,6 +7,8 @@ using std::cout;
 using std::endl;
 using std::cin;
 vector <string> suits = {"\x03","\x04","\x05","\x06"};
+vector <string> suitsO1 = {"♥", "♦", "♣", "♠"};
+vector <string> suitsO2 = {"h", "d", "c", "s"};
 /* Heart is x03
  Diamond is x04
  Club is x05
@@ -22,7 +24,52 @@ short int roles_num = 9;
 short int alivePlayers = 9;
 short int wIndex = 0;
 string choice;
+string tanswer; //Test answer
+short int aCounter = 0; //Answer counter
+short int wOptions = 0; //Which option chosen by the player to go on with the game. 0 = Default, 1 = Actual symbols, 2 = Suit initials
+//Test if the player can actually see the suits or not, and adjust the gameplay based on that
 void c();
+void testing() {
+    cin>>tanswer;
+    cin.clear();
+    cin.ignore(10000, '\n');
+    if (tanswer == "y") {
+        if (aCounter == 0) {
+            cout<<"Great! So we will stick with the default settings. You may proceed with the game in that case."<<endl<<endl;
+            cout<<"Read game info [i]"<<endl;
+            cout<<"Start the game [s]"<<endl;
+            c();
+        } else if (aCounter == 1) {
+            cout<<"Great! In that case, we're going to go with this option. Thanks for your patience! You may now proceed with the game."<<endl<<endl;
+            wOptions = 1;
+            cout<<"Read game info [i]"<<endl;
+            cout<<"Start the game [s]"<<endl;
+            c();
+        }
+        
+    } else if (tanswer == "n") {
+        if (aCounter == 0) {
+            aCounter++;
+            cout<<"I see. In that case, we'll try the next option."<<endl;
+            cout<<"Can you see the following suit? It should be the diamond suit: ♦"<<endl;
+            cout<<"- I can see it! [y]"<<endl;
+            cout<<"- I still can't see the suit... [n]"<<endl;
+            cout<<"- Your choice: ";
+            testing();
+            } else if (aCounter == 1) {
+                cout<<"I see. In that case, we're going to use the last option available. Instead of the suit symbol, we'll simply use the suit initial. Testing is over."<<endl<<endl;
+                wOptions = 2;
+                cout<<"Read game info [i]"<<endl;
+                cout<<"Start the game [s]"<<endl;
+                c();
+            }
+        
+    } else {
+        cout<<"[?] Unrecognised command. Make sure you answered with either 'y' or 'n', then try again."<<endl;
+        cout<<"- You chose: ";
+        testing(); 
+    }
+}
 void newRow() {
     //Scounter should be 3 here
     if (Scounter > 2) {
@@ -112,8 +159,11 @@ void newRound() {
     Savailableplayers.clear();
     Ravailableplayers.clear();
     suits = {"\x03","\x04","\x05","\x06"};
+    suitsO1 = {"♥", "♦", "♣", "♠"};
+    suitsO2 = {"h", "d", "c", "s"};
     //Choose a new suit for the player
-    player.push_back(suits[rand()%4]);
+    if (wOptions == 0) {
+        player.push_back(suits[rand()%4]);
     //Assign suit for the player
     if (player[0] == "\x04") {
         player_suit.push_back("d");
@@ -127,6 +177,40 @@ void newRound() {
     else if (player[0] == "\x06") {
         player_suit.push_back("s");
     }
+    } else if (wOptions == 1) {
+                //Option 1: actual symbols, not codes
+                player.push_back(suitsO1[rand()%4]);
+                //Assign suit for the player
+                if (player[0] == "♥") {
+                    player_suit.push_back("h");
+                }
+                else if (player[0] == "♦") {
+                    player_suit.push_back("d");
+                }
+                else if (player[0] == "♣") {
+                    player_suit.push_back("c");
+                }
+                else if (player[0] == "♠") {
+                    player_suit.push_back("s");
+                }
+            } else if (wOptions == 2) {
+                //Option 2: just suit initials
+                player.push_back(suitsO2[rand()%4]);
+                //Assign suit for the player
+                if (player[0] == "h") {
+                    player_suit.push_back("h");
+                }
+                else if (player[0] == "d") {
+                    player_suit.push_back("d");
+                }
+                else if (player[0] == "c") {
+                    player_suit.push_back("c");
+                }
+                else if (player[0] == "s") {
+                    player_suit.push_back("s");
+                }
+            } 
+    
     //Check if the first bot is still alive. If it is, give it a new suit, otherwise move on to the next bot
     //Also check if it's the Jack of Hearts. If it is, but it's dead, then it's GAME CLEAR
     if (isAlive[0]) {
@@ -134,7 +218,13 @@ void newRound() {
         Ravailableplayers.push_back(0);
         length.push_back(allplayers[0].size());
         nameLen_keeper.push_back(length[0]);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         available[0] = true;
         hasAsked[0] = false;
         whoq.push_back(0);
@@ -186,7 +276,13 @@ void newRound() {
         Ravailableplayers.push_back(1);
         length.push_back(allplayers[1].size());
         nameLen_keeper.push_back(length[1]);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         available[1] = true;
         hasAsked[1] = false;
         whoq.push_back(1);
@@ -227,7 +323,13 @@ void newRound() {
         Ravailableplayers.push_back(2);
         length.push_back(allplayers[2].size());
         nameLen_keeper.push_back(length[2]);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         available[2] = true;
         hasAsked[2] = false;
         whoq.push_back(2);
@@ -268,7 +370,13 @@ void newRound() {
     if (isAlive[3]) {
         Savailableplayers.push_back(3);
         Ravailableplayers.push_back(3);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[3].size());
         nameLen_keeper.push_back(length[0]);
         if (Scounter == 0) {
@@ -320,7 +428,13 @@ void newRound() {
     if (isAlive[4]) {
         Savailableplayers.push_back(4);
         Ravailableplayers.push_back(4);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[4].size());
         nameLen_keeper.push_back(length[1]);
         available[4] = true;
@@ -362,7 +476,13 @@ void newRound() {
     if (isAlive[5]) {
         Savailableplayers.push_back(5);
         Ravailableplayers.push_back(5);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[5].size());
         nameLen_keeper.push_back(length[2]);
         available[5] = true;
@@ -405,7 +525,13 @@ void newRound() {
     if (isAlive[6]) {
         Savailableplayers.push_back(6);
         Ravailableplayers.push_back(6);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[6].size());
         nameLen_keeper.push_back(length[0]);
         if (Scounter == 0) {
@@ -457,7 +583,13 @@ void newRound() {
     if (isAlive[7]) {
         Savailableplayers.push_back(7);
         Ravailableplayers.push_back(7);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[7].size());
         nameLen_keeper.push_back(length[1]);
         available[7] = true;
@@ -499,7 +631,13 @@ void newRound() {
     if (isAlive[8]) {
         Savailableplayers.push_back(8);
         Ravailableplayers.push_back(8);
-        suit_keeper.push_back(suits[rand()%4]);
+        if (wOptions == 0) {
+            suit_keeper.push_back(suits[rand()%4]);
+        } else if (wOptions == 1) {
+            suit_keeper.push_back(suitsO1[rand()%4]);
+        } else if (wOptions == 2) {
+            suit_keeper.push_back(suitsO2[rand()%4]);
+        }
         length.push_back(allplayers[8].size());
         nameLen_keeper.push_back(length[2]);
         available[8] = true;
@@ -514,8 +652,6 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[8] = true;
-        
-        
         length.push_back(allplayers[8].size());
         nameLen_keeper.push_back(length[2]);
         available[8] = false;
@@ -580,20 +716,56 @@ void newRound() {
 class Game {
     public:
         Game() {
-            player.push_back(suits[rand()%4]);
-            //Assign suit for the player
-            if (player[0] == "\x04") {
-                player_suit.push_back("d");
+            if (wOptions == 0) {
+                //Default option
+                player.push_back(suits[rand()%4]);
+                //Assign suit for the player
+                if (player[0] == "\x04") {
+                    player_suit.push_back("d");
+                }
+                else if (player[0] == "\x03") {
+                    player_suit.push_back("h");
+                }
+                else if (player[0] == "\x05") {
+                    player_suit.push_back("c");
+                }
+                else if (player[0] == "\x06") {
+                    player_suit.push_back("s");
+                }
+            } else if (wOptions == 1) {
+                //Option 1: actual symbols, not codes
+                player.push_back(suitsO1[rand()%4]);
+                //Assign suit for the player
+                if (player[0] == "♥") {
+                    player_suit.push_back("h");
+                }
+                else if (player[0] == "♦") {
+                    player_suit.push_back("d");
+                }
+                else if (player[0] == "♣") {
+                    player_suit.push_back("c");
+                }
+                else if (player[0] == "♠") {
+                    player_suit.push_back("s");
+                }
+            } else if (wOptions == 2) {
+                //Option 2: just suit initials
+                player.push_back(suitsO2[rand()%4]);
+                //Assign suit for the player
+                if (player[0] == "h") {
+                    player_suit.push_back("h");
+                }
+                else if (player[0] == "d") {
+                    player_suit.push_back("d");
+                }
+                else if (player[0] == "c") {
+                    player_suit.push_back("c");
+                }
+                else if (player[0] == "s") {
+                    player_suit.push_back("s");
+                }
             }
-            else if (player[0] == "\x03") {
-                player_suit.push_back("h");
-            }
-            else if (player[0] == "\x05") {
-                player_suit.push_back("c");
-            }
-            else if (player[0] == "\x06") {
-                player_suit.push_back("s");
-            }
+            
             //Create the bots
             Bots bot1, bot2, bot3, bot4, bot5, bot6, bot7, bot8, bot9;
         }
@@ -646,10 +818,11 @@ int main()
     cout<<"// Program by: WhosWho"<<endl;
     cout<<"// Github: https://github.com/WhosWho32"<<endl<<endl<<endl;
     cout<<"If this is your first time playing, it is recommended that you first read all the information regarding this game. Otherwise, you may go ahead and start."<<endl;
-    cout<<"Read game info [i]"<<endl;
-    cout<<"Start the game [s]"<<endl;
-    c();
+    cout<<"However, before we start we have to make sure that you can actually play. Let's take a small test. A random suit will be displayed. Type 'y' if you can see it, otherwise type 'n' to choose a different option."<<endl;
+    cout<<"Can you see the following suit? It should be the heart suit: ["<<"\x03"<<"]"<<endl;
+    cout<<"I can see it! [y]"<<endl;
+    cout<<"I can't see it. Give me another option. [n]"<<endl;
+    cout<<"- You chose: ";
+    testing();
     
-
 }
-
