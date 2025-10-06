@@ -1,6 +1,6 @@
 //Solitary Confinement game
 //By WhosWho
-//Last edited: September 25th
+//Last edited: October 6th
 #include "header.h"
 #include <cmath>
 using std::cout;
@@ -650,4 +650,5 @@ int main()
     cout<<"Start the game [s]"<<endl;
     c();
     
+
 }
