@@ -52,15 +52,7 @@ void botaskp(); //When it's time for the bots to ask the player
 void chooseS();
 void chooseR();
 void ChatLog(); //As the name implies, it will write out all the chat log: who the player talked to, and which bots talked to which
-void answerBot(); //If receiver is Bot 1
-void rBot2(); //Bot 2 as receiver
-void rBot3(); //Bot 3 as receiver
-void rBot4(); //Bot 4 as receiver
-void rBot5(); //Bot 5 as receiver
-void rBot6(); //Bot 6 as receiver
-void rBot7(); //Bot 7 as receiver
-void rBot8(); //Bot 8 as receiver
-void rBot9(); //Bot 9 as receiver
+void answerBot(int a); //If receiver is Bot 1
 
 /*botquestionbot.cpp variables*/
 
