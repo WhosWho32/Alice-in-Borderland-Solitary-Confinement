@@ -4,7 +4,7 @@
 To compile the program, use the following command in your terminal (if you're using Visual Studio Code, in Code Blocks you can just put all the files inside one Project and Build and Run it. Can't guarantee this will work on an Online Compiler, I tried it and the suits won't show there, but in Code Blocks and VSCode they were visible. I'll fix it in the future and at least put an initial instead)
 
 ```
-g++ bots.cpp gameinfo.cpp main.cpp communication.cpp roles.cpp botquestionplayer.cpp botquestionbot.cpp bot2r.cpp bot3r.cpp bot4r.cpp bot5r.cpp bot6r.cpp bot7r.cpp bot8r.cpp bot9r.cpp celltime.cpp -o SolitaryConfinement.exe
+g++ bots.cpp gameinfo.cpp main.cpp communication.cpp roles.cpp botquestionplayer.cpp botquestionbot.cpp celltime.cpp -o SolitaryConfinement.exe
 ```
 
 And to run the program, simply type
