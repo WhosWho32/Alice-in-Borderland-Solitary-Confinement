@@ -101,7 +101,7 @@ void chooseR() {
             chooseR();
     }
     if (receiver == 0) {
-    answerBot(0);
+        answerBot(0);
     } else if (receiver == 1) {
         answerBot(1);
     } else if (receiver == 2) {
@@ -123,7 +123,6 @@ void chooseR() {
 
 //Decide based on the bots' role what suit to offer to another BOT (B-B)
 void answerBot(int a) {
-    //If the receiver is chosen as the first bot
             //This function will activate for receiver = a
                 //And the bot has the Innocent role, return the true suit
                 if (role_keeper[a] == "i") {
@@ -141,7 +140,7 @@ void answerBot(int a) {
                                             chooseR();
                                         }
                                     } else if (a == 2) {
-                                        //a == 1 doesn't exist, since that would mean talking to itself
+                                        //a = 1 doesn't exist, since that would mean talking to itself
                                         //Same as receiver = 2
                                         if (isInside2[1] == 0) {
                                             opinions2.push_back(suit_keeper_i[1]);
@@ -382,11 +381,7 @@ void answerBot(int a) {
                                     } else {
                                         chooseR();
                                     }
-                                }
-                                    
-                                    
-                                
-                                
+                                }  
                             } else {
                                 
                                 chooseR();
@@ -476,10 +471,7 @@ void answerBot(int a) {
                                         chooseR();
                                     }
                                 }
-                                    
-                                    
-                                
-                                
+
                             } else {
                                 
                                 chooseR();
@@ -837,10 +829,10 @@ void answerBot(int a) {
                                         chooseR();
                                     }
                                 } else if (a == 7) {
-                                    if (isInside7[0] == 0) {
-                                        opinions1.push_back(suit_keeper_i[0]);
-                                        talkedto1[0] = 7; isInside7[0]++;
-                                        Soptions[0]--; //Bot 2 has one less option to talk to
+                                    if (isInside7[8] == 0) {
+                                        opinions1.push_back(suit_keeper_i[8]);
+                                        talkedto1[0] = 7; isInside7[8]++;
+                                        Soptions[8]--; //Bot 2 has one less option to talk to
                                         ChatLog(); 
                                     } else {
                                         chooseR();
@@ -3265,9 +3257,7 @@ void answerBot(int a) {
                                 }
  
                             } else {
-                                
                                 chooseR();
-                                
                             }
                         
                         
