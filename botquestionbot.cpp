@@ -3079,7 +3079,6 @@ void answerBot(int a) {
                                 
                             }
                         
-                        
                     }
                     } else {
                         finishedTalking[7] = true;  
@@ -3441,8 +3440,6 @@ void answerBot(int a) {
                                 chooseR();
 
                             }
-                        
-                        
                     }
                     } else {
                         finishedTalking[0] = true;  
