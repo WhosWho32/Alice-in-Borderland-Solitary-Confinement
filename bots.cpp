@@ -11,9 +11,10 @@ vector <string> botnames = {"Roy", "Becky", "Artemis", "Amy",
         "Vanquisher&", "GranFaust", "L3VIATHAN", "Acher0n", "Sudaruska",
         "TurbilliONN", "Kamar1n", "Rigadooon", "1Callahan", "Arc4NaA",
         "Blackhawk", "MegaMagnusM", "Silv3r6", "Ameba", "GiantGerm", "Kaz3jin", "Robbin'Goblin", "UshiOni", "Sonya",
-        "Anubi$$", "Basilisk?", "Mustang", "YoRHa", "xA2", "0x0x0", "The" , "Zanka", "6cai."}, suit_keeper, allplayers;
+        "Anubi$$", "Basilisk?", "Mustang", "YoRHa", "xA2", "0x0x0", "The" , "Zanka", "6cai.",
+        "Tower#1" , "Tower#2"}, suit_keeper, allplayers;
 vector <int> nameLen_keeper; // Vector that memorises the name length
-short int name = 49; //In total there are 49 numbers on start, but we will only choose 9
+short int name = 51; //In total there are 51 numbers on start, but we will only choose 9
 vector <string> unspokenbots;
 short int name_length;
 short int first = 0; //Check if it's the first name
