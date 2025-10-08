@@ -1,6 +1,6 @@
 //Solitary Confinement game
 //By WhosWho
-//Last edited: October 6th
+//Last edited: October 8th
 #include "header.h"
 #include <cmath>
 using std::cout;
@@ -9,11 +9,13 @@ using std::cin;
 vector <string> suits = {"\x03","\x04","\x05","\x06"};
 vector <string> suitsO1 = {"♥", "♦", "♣", "♠"};
 vector <string> suitsO2 = {"h", "d", "c", "s"};
+string suitable;
 /* Heart is x03
  Diamond is x04
  Club is x05
  Spade is x06 */
 vector <string> roles = {"i","i","i","da","da","da","da","da","j"};
+vector <int> indexing = {0,1,2,3,4,5,6,7,8};
 vector <string> player_suit;
 vector <string> player;
 vector <int> length;
@@ -51,7 +53,7 @@ void testing() {
         if (aCounter == 0) {
             aCounter++;
             cout<<"I see. In that case, we'll try the next option."<<endl;
-            cout<<"Can you see the following suit? It should be the diamond suit: ♦"<<endl;
+            cout<<"Can you see the following suit? It should be the diamond suit: [♦]"<<endl;
             cout<<"- I can see it! [y]"<<endl;
             cout<<"- I still can't see the suit... [n]"<<endl;
             cout<<"- Your choice: ";
@@ -163,7 +165,7 @@ void newRound() {
     suitsO2 = {"h", "d", "c", "s"};
     //Choose a new suit for the player
     if (wOptions == 0) {
-        player.push_back(suits[rand()%4]);
+    player.push_back(suits[rand()%4]);
     //Assign suit for the player
     if (player[0] == "\x04") {
         player_suit.push_back("d");
@@ -219,11 +221,41 @@ void newRound() {
         length.push_back(allplayers[0].size());
         nameLen_keeper.push_back(length[0]);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[0] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[0] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[0] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[0] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[0] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[0] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[0] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[0] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[0] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[0] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[0] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[0] = "s";
+            }
         }
         available[0] = true;
         hasAsked[0] = false;
@@ -241,7 +273,7 @@ void newRound() {
         Scounter++;
         allbotscounter++;
     } else {
-        
+        suit_keeper_i[0] = "x";
         finishedTalking[0] = true;
         length.push_back(allplayers[0].size());
         nameLen_keeper.push_back(length[0]);
@@ -277,11 +309,41 @@ void newRound() {
         length.push_back(allplayers[1].size());
         nameLen_keeper.push_back(length[1]);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[1] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[1] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[1] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[1] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[1] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[1] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[1] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[1] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[1] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[1] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[1] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[1] = "s";
+            }
         }
         available[1] = true;
         hasAsked[1] = false;
@@ -295,8 +357,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[1] = true;
-        
-        
+        suit_keeper_i[1] = "x";
         length.push_back(allplayers[1].size());
         nameLen_keeper.push_back(length[1]);
         available[1] = false;
@@ -324,11 +385,41 @@ void newRound() {
         length.push_back(allplayers[2].size());
         nameLen_keeper.push_back(length[2]);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[2] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[2] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[2] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[2] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[2] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[2] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[2] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[2] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[2] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[2] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[2] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[2] = "s";
+            }
         }
         available[2] = true;
         hasAsked[2] = false;
@@ -342,8 +433,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[2] = true;
-        
-        
+        suit_keeper_i[2] = "x";
         length.push_back(allplayers[2].size());
         nameLen_keeper.push_back(length[2]);
         available[2] = false;
@@ -371,11 +461,41 @@ void newRound() {
         Savailableplayers.push_back(3);
         Ravailableplayers.push_back(3);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[3] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[3] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[3] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[3] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[3] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[3] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[3] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[3] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[3] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[3] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[3] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[3] = "s";
+            }
         }
         length.push_back(allplayers[3].size());
         nameLen_keeper.push_back(length[0]);
@@ -396,8 +516,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[3] = true;
-        
-        
+        suit_keeper_i[3] = "x";
         length.push_back(allplayers[3].size());
         nameLen_keeper.push_back(length[0]);
         available[3] = false;
@@ -429,11 +548,41 @@ void newRound() {
         Savailableplayers.push_back(4);
         Ravailableplayers.push_back(4);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[4] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[4] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[4] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[4] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[4] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[4] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[4] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[4] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[4] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[4] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[4] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[4] = "s";
+            }
         }
         length.push_back(allplayers[4].size());
         nameLen_keeper.push_back(length[1]);
@@ -449,7 +598,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[4] = true;
-        
+        suit_keeper_i[4] = "x";
         
         length.push_back(allplayers[4].size());
         nameLen_keeper.push_back(length[1]);
@@ -477,11 +626,41 @@ void newRound() {
         Savailableplayers.push_back(5);
         Ravailableplayers.push_back(5);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[5] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[5] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[5] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[5] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[5] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[5] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[5] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[5] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[5] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[5] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[5] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[5] = "s";
+            }
         }
         length.push_back(allplayers[5].size());
         nameLen_keeper.push_back(length[2]);
@@ -497,7 +676,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[5] = true;
-        
+        suit_keeper_i[5] = "x";
         
         length.push_back(allplayers[5].size());
         nameLen_keeper.push_back(length[2]);
@@ -526,11 +705,41 @@ void newRound() {
         Savailableplayers.push_back(6);
         Ravailableplayers.push_back(6);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[6] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[6] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[6] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[6] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[6] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[6] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[6] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[6] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[0] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[6] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[6] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[6] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[6] = "s";
+            }
         }
         length.push_back(allplayers[6].size());
         nameLen_keeper.push_back(length[0]);
@@ -551,7 +760,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[6] = true;
-        
+        suit_keeper_i[6] = "x";
         
         length.push_back(allplayers[6].size());
         nameLen_keeper.push_back(length[0]);
@@ -584,11 +793,41 @@ void newRound() {
         Savailableplayers.push_back(7);
         Ravailableplayers.push_back(7);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[7] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[7] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[7] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[7] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[7] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[7] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[7] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[7] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[1] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[7] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[7] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[7] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[7] = "s";
+            }
         }
         length.push_back(allplayers[7].size());
         nameLen_keeper.push_back(length[1]);
@@ -604,7 +843,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[7] = true;
-        
+        suit_keeper_i[7] = "x";
         
         length.push_back(allplayers[7].size());
         nameLen_keeper.push_back(length[1]);
@@ -632,11 +871,41 @@ void newRound() {
         Savailableplayers.push_back(8);
         Ravailableplayers.push_back(8);
         if (wOptions == 0) {
-            suit_keeper.push_back(suits[rand()%4]);
+            suitable = suits[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == suits[0]) {
+                suit_keeper_i[8] = "h";
+            } else if (suitable == suits[1]) {
+                suit_keeper_i[8] = "d";
+            } else if (suitable == suits[2]) {
+                suit_keeper_i[8] = "c";
+            } else if (suitable == suits[3]) {
+                suit_keeper_i[8] = "s";
+            }
         } else if (wOptions == 1) {
-            suit_keeper.push_back(suitsO1[rand()%4]);
+            suitable = suitsO1[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "♥") {
+                suit_keeper_i[8] = "h";
+            } else if (suitable == "♦") {
+                suit_keeper_i[8] = "d";
+            } else if (suitable == "♣") {
+                suit_keeper_i[8] = "c";
+            } else if (suitable == "♠") {
+                suit_keeper_i[8] = "s";
+            }
         } else if (wOptions == 2) {
-            suit_keeper.push_back(suitsO2[rand()%4]);
+            suitable = suitsO2[rand()%4];
+            suit_keeper[2] = suitable;
+            if (suitable == "h") {
+                suit_keeper_i[8] = "h";
+            } else if (suitable == "d") {
+                suit_keeper_i[8] = "d";
+            } else if (suitable == "c") {
+                suit_keeper_i[8] = "c";
+            } else if (suitable == "s") {
+                suit_keeper_i[8] = "s";
+            }
         }
         length.push_back(allplayers[8].size());
         nameLen_keeper.push_back(length[2]);
@@ -652,6 +921,7 @@ void newRound() {
         allbotscounter++;
     } else {
         finishedTalking[8] = true;
+        suit_keeper_i[8] = "x";
         length.push_back(allplayers[8].size());
         nameLen_keeper.push_back(length[2]);
         available[8] = false;
